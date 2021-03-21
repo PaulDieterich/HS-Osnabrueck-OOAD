@@ -41,15 +41,18 @@ public:
     
 };
 std::unique_ptr<Konto> createOwnerAccount(const std::string& name, std::uint32_t account){
-
-        return std::make_unique<Konto>(account);
+        std::unique_ptr<Konto> konto = std::make_unique<Konto>(account);
+        konto->inhaber = std::make_unique<Kunde>(name);
+        return konto;
 }
 int main(){
    
-    std::unique_ptr<Kunde> kundePaul = std::make_unique<Kunde>("Paul");
-    std::unique_ptr<Konto> kontoPaul = std::make_unique<Konto>(3);
+   
+    std::unique_ptr<Konto> kontoPaul =  createOwnerAccount("Paul",3);
+    kontoPaul->print();
+    kontoPaul->inhaber->print();
     
-    createOwnerAccount(kundePaul->name,kontoPaul->ident);
+   
    
        
     
